@@ -10,18 +10,15 @@ block content
 
   .row
     .col-12.col-md-8
-      each location in locations
-        .card
-          .card-block
-            h4
-              a(href=`/location/${location._id}`)= location.name
-              +outputRating(location.rating)
-              span.badge.badge-pill.badge-default.float-right= location.distance
-            p.address= location.address
-            .facilities
-              each facility in location.facilities
-                span.badge.badge-warning= facility
+      .error= message
+
+      app-home-list
 
 
     .col-12.col-md-4
       p.lead= sidebar
+    
+  block scripts
+  script(src='/build/runtime.ceb5a157cfa7faae9f95.js')
+  script(src='/build/polyfills.337bf95917c9415ba92b.js')
+  script(src='/build/main.ab5f8d352ee0c122ec10.js')
