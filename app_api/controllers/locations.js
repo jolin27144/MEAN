@@ -6,7 +6,7 @@ const locationsListByDistance = async (req, res) => {
   const lat = parseFloat(req.query.lat);
   const near = {
     type: 'Point',
-    coordinates: [lat, lng]
+    coordinates: [lng, lat]
   };
   const geoOptions = {
     distanceField: 'distance.calculated',
@@ -27,12 +27,12 @@ const locationsListByDistance = async (req, res) => {
 
     const locations = results.map((result) => {
       return {
-        id: results.id,
+        _id: result._id,
         name: result.name,
         address: result.address,
         rating: result.rating,
         facilities: result.facilities,
-        distance: `${result.distance.calculated.toFixed()}m`
+        distance: `${result.distance.calculated.toFixed()}`
       };
     });
     res.status(200).json(locations);
@@ -75,17 +75,19 @@ const locationsCreate = (req, res) => {
     }
   );
 };
+
 const locationsReadOne = (req, res) => {
-  console.log(req.params.locationid);
   Loc.findById(req.params.locationid).exec((err, location) => {
     if (!location) {
-      res.status(404).json({ message: 'location not found' });
+      return res.status(404).json({ message: 'location not found' });
     } else if (err) {
-      res.status(404).json(err);
+      return res.status(404).json(err);
+    } else {
+      return res.status(200).json(location);
     }
-    res.status(200).json(location);
   });
 };
+
 const locationsUpdateOne = (req, res) => {
   if (!req.params.locationid) {
     return res.status(404).json({

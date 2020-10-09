@@ -47,7 +47,7 @@ const doAddReview = (req, res, location) => {
       } else {
         updateAverageRating(location._id);
         const thisReview = location.reviews[location.reviews.length - 1];
-        res.status(200).json(thisReview);
+        res.status(201).json(thisReview);
       }
     });
   }
