@@ -1,15 +1,17 @@
+//   this.locations = [
+//     {
+//       _id: '5f6af65906320508541d4824',
+//       name: '石牌桥',
+//       address: '125 High Street, Reading, RG6 1PS',
+//       rating: 4,
+//       facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+//       distance: 7477,
+//     },
+//   ];
 import { Component, OnInit } from '@angular/core';
 import { Loc8rDataService } from '../loc8r-data.service';
 import { GeolocationService } from '../geolocation.service';
-
-export class Location {
-  _id: string;
-  name: string;
-  distance: number;
-  address: string;
-  rating: number;
-  facilities: string[];
-}
+import { Location } from '../location';
 
 @Component({
   selector: 'app-home-list',
@@ -28,20 +30,30 @@ export class HomeListComponent implements OnInit {
 
   ngOnInit() {
     this.getPosition();
+    this.locations = [
+      {
+        _id: '5f6af65906320508541d4824',
+        name: '石牌桥',
+        address: '125 High Street, Reading, RG6 1PS',
+        rating: 4,
+        facilities: ['Hot drinks', 'Food', 'Premium wifi'],
+        distance: 7477,
+        reviews: [],
+        coords: [],
+        openingTimes: [
+          {
+            days: '',
+            opening: '',
+            closing: '',
+            closed: false,
+          },
+        ],
+      },
+    ];
   }
 
   private getPosition(): void {
     this.message = 'Getting your location...';
-    //   this.locations = [
-    //     {
-    //       _id: '5f6af65906320508541d4824',
-    //       name: '石牌桥',
-    //       address: '125 High Street, Reading, RG6 1PS',
-    //       rating: 4,
-    //       facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-    //       distance: 7477,
-    //     },
-    //   ];
     this.geoLocationService.getPosition(
       this.getLocations.bind(this),
       this.showError.bind(this),
